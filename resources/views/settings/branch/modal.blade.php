@@ -1,0 +1,45 @@
+<div class="modal fade" id="add-new">
+    <div class="modal-dialog">
+        <div class="modal-content rounded-0">
+            <x-modal-title title="{{ __('settings.branch_details') }}" />
+            <form id="form">
+                <input type="hidden" name="id" value="0">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>{{ __('settings.branch_name') }} <x-text-danger /></label>
+                                <input type="text" class="form-control form-control-sm"
+                                    placeholder="{{ __('branch_name') }}" name="name">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Company <x-text-danger /></label>
+                                <select class="select2 form-control form-control-sm" name="CID">
+                                    <option value="">Select Company</option>
+                                    {!! App\Models\Company::dropdown() !!}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>{{ __('settings.branch_location') }} <x-text-danger /></label>
+                                <input type="text" class="form-control form-control-sm"
+                                    placeholder="Enter Branch Location" name="branch_location">
+                            </div>
+                        </div>
+                    </div>
+                    <!--row-->
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary save">Save changes</button>
+                </div>
+            </form>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->

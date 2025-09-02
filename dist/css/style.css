@@ -1,0 +1,27 @@
+.modal-header{
+    padding: 0.3rem !important;
+}
+.modal-content{
+    border: none !important;
+}
+label:not(.form-check-label):not(.custom-file-label){
+    /* font-weight: 700 !important; */
+}
+.form-control{
+    color:black !important;
+}
+.lead_action > .bg-teal {
+    font-size: 15px !important; /* Adjust the font-size value as needed */
+}
+.dataTables_filter
+{
+    float: right !important;
+}
+.dataTables_processing{
+    position: absolute;
+    top: 50px;
+    /* left: 50%; */
+    padding: 10px;
+    width: 100%;
+    text-align: center;
+}
