@@ -56,7 +56,9 @@ class User extends Authenticatable
     ];
     public static function dropdown($id=0){
         $list='';
-        $res=self::all();
+        $res = self::whereDoesntHave('roles', function ($query) {
+            $query->where('name', 'admin');
+        })->get();
         foreach($res as $item){
             $list.='<option '.($id==$item->id?'selected':'').' value="'.$item->id.'">'.$item->name.'</option>';
         }

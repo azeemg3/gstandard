@@ -19,21 +19,20 @@
                                     <a class="nav-link active" id="vert-tabs-home-tab" data-toggle="pill"
                                         href="#vert-tabs-home" role="tab" aria-controls="vert-tabs-home"
                                         aria-selected="false">Company Details</a>
-                                    <a class="nav-link" id="vert-tabs-profile-tab" data-toggle="pill"
+                                    <!-- <a class="nav-link" id="vert-tabs-profile-tab" data-toggle="pill"
                                         href="#vert-tabs-profile" role="tab" aria-controls="vert-tabs-profile"
-                                        aria-selected="false">Contact Details</a>
+                                        aria-selected="false">Contact Details</a> -->
                                     <a class="nav-link" id="vert-tabs-messages-tab" data-toggle="pill"
                                         href="#vert-tabs-messages" role="tab" aria-controls="vert-tabs-messages"
                                         aria-selected="false">SMTP Settings</a>
-                                    <a class="nav-link" id="vert-tabs-settings-tab" data-toggle="pill"
+                                    <!-- <a class="nav-link" id="vert-tabs-settings-tab" data-toggle="pill"
                                         href="#vert-tabs-settings" role="tab" aria-controls="vert-tabs-settings"
-                                        aria-selected="true">API'S Settings</a>
+                                        aria-selected="true">API'S Settings</a> -->
                                 </div>
                             </div>
                             <div class="col-7 col-sm-9">
                                 <div class="tab-content" id="vert-tabs-tabContent">
                                     @include('settings.business_settings.includes.business-settings')
-                                    @include('settings.business_settings.includes.business-contact')
                                     @include('settings.business_settings.includes.business-smtp')
                                     <div class="tab-pane fade" id="vert-tabs-settings" role="tabpanel"
                                         aria-labelledby="vert-tabs-settings-tab">
@@ -46,6 +45,7 @@
                     </div>
                     <!-- /.card -->
                     <div class="col-md-12 mb-2">
+                        <br />
                         <button type="submit" class="btn btn-primary btn-sm float-right">Save</button>
                     </div>
                     <br><br>

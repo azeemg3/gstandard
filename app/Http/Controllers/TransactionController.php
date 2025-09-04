@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\MtchEmail;
+use App\Models\Branch;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 use DB;
@@ -110,8 +111,8 @@ class TransactionController extends Controller
                     'to_branch' => $ret->sender_branch->name,
                     'message' => 'A new transaction has been initiated with amount '.$ret->amount,
                 ];
-                $to_email=$ret->receiver_branch->email;
-                Mail::to("azeemkhalidg3@gmail.com")->send(new MtchEmail($details));
+                $to_email=Branch::find($request->to_branch_id)->branch_email;
+                Mail::to($to_email)->send(new MtchEmail($details));
             } else {
                 $ret = Transaction::where('id', $id)->update($data);
             }

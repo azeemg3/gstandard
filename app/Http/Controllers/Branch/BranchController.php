@@ -29,7 +29,7 @@ class BranchController extends Controller
                               <span class="sr-only">Toggle Dropdown</span>
                               <div class="dropdown-menu" role="menu" style="">
                                 <a class="dropdown-item" onClick="edit_rec(this)" data-action="'.route('branch.edit',$row->id).'" href="#" data-modal="add-new" data-id="'.$row->id.'"><i class="fas fa-edit"></i> Edit</a>
-                                <a class="dropdown-item text-danger del_rec" href="#"><i class="fas fa-trash"></i> Delete</a>
+                                <a class="dropdown-item text-danger del_rec" href="javascript:void(0)" data-id="' . $row->id . '" data-action="' . url('transaction') . '"><i class="fas fa-trash"></i> Delete</a>
                               </div>
                             </button>
                           </div>';
@@ -58,10 +58,13 @@ class BranchController extends Controller
             'CID' => 'required',
             'name' => 'required',
             'branch_location' => 'required',
+            'branch_email' => 'required|email',
         ], [
             'CID.required' => 'The Country Field is required',
             'name.required' => 'The Branch Field is required',
             'branch_location.required' => 'The Branch Location Field is required',
+            'branch_email.required' => 'The Branch Email Field is required',
+            'branch_email.email' => 'The Branch Email must be a valid email address',
         ]);
         DB::beginTransaction();
         $data = $request->all();

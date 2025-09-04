@@ -101,35 +101,47 @@
         });
     });
     /*delete records*/
-    function del_rec(id, route) {
-        Swal.fire({
-            title: "Are you sure?",
-            text: "You won't be able to revert this!",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Yes, delete it!"
-        }).then((result) => {
-            if (result.isConfirmed) {
-                $.ajax({
-                    url: route,
-                    type: 'DELETE',
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    success: function(data) {
-                        $("#" + id).hide();
-                    },
-                });
-                Swal.fire({
-                    title: "Deleted!",
-                    text: "Your file has been deleted.",
-                    icon: "success"
-                });
-            }
-        });
-    }
+   function del_rec(route) {
+    Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+    }).then((result) => {
+        if (result.value==true) {
+            Swal.fire({
+                title: "Deleting...",
+                text: "Please wait while we delete the record.",
+                allowOutsideClick: false,
+                didOpen: () => {
+                    Swal.showLoading();
+                }
+            });
+
+            $.ajax({
+                url: route,
+                type: 'DELETE',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(data) {
+                    $('.data-table').DataTable().ajax.reload();
+                },
+                error: function(xhr) {
+                    Swal.fire({
+                        title: "Error!",
+                        text: "Something went wrong while deleting.",
+                        icon: "error"
+                    });
+                }
+            });
+        }
+    });
+}
+
     $(document).on('click', '.del_rec', function(e) {
         e.preventDefault();
         var id = $(this).data('id');
@@ -191,7 +203,7 @@
                 .requestPermission()
                 .then(function() {
                     // return messaging.getToken();
-                    console.log(messaging.getToken());
+                    // console.log(messaging.getToken());
                 })
                 .then(function(response) {
                     $.ajaxSetup({

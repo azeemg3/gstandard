@@ -208,4 +208,13 @@ class Helpers{
         $boxes=config('constant.lead_boxes');
         return $boxes;
     }
+    //accounts
+    public static function payment_method($id=0){
+        $list='';
+        $array=[1=>'Cash',2=>'Bank Transfer',3=>'Mobile Payment',4=>'Cheque'];
+        foreach($array as $key=>$val){
+            $list.='<option '.($id==$key?'selected':'').' value="'.$val.'">'.$val.'</option>';
+        }
+        return $list;
+    }
 }

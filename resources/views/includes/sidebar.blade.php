@@ -36,7 +36,33 @@ $lms=['transaction-fee','transaction'];
                     </a>
                 </li>
                 @include('includes.sidebar.mtms')
-                @can('profit_report')
+                <li class="nav-item has-treeview @if(in_array(Request::segment(1),$lms)) menu-open @endif">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa fa-chart-bar"></i>
+                        <p>
+                            Accounts
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{route('staff-salaries.index')}}" class="nav-link @if(Request::segment(1)=='profit-report') active @endif">
+                                <i class="nav-icon fas fa-angle-double-right fa-xs"></i>
+                                <p>Staff Salaries</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('expenses.index')}}" class="nav-link @if(Request::segment(1)=='profit-report') active @endif">
+                                <i class="nav-icon fas fa-angle-double-right fa-xs"></i>
+                                <p>Expenses</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                @include('includes.sidebar.setting')
+            </ul>
+            </li>
+            @can('profit_report')
                 <li class="nav-item has-treeview @if(in_array(Request::segment(1),$lms)) menu-open @endif">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa fa-file"></i>
@@ -55,9 +81,6 @@ $lms=['transaction-fee','transaction'];
                     </ul>
                 </li>
                 @endcan
-                @include('includes.sidebar.setting')
-            </ul>
-            </li>
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

@@ -11,6 +11,7 @@
           columns: [
               {data: 'id', name: 'id'},
               {data: 'name', name: 'name'},
+              {data: 'branch_email', name: 'branch_email'},
               {data: 'company.name', name: 'company.name'},
               {data: 'action', name: 'action', orderable: false, searchable: false},
           ]

@@ -22,6 +22,13 @@
                                 </select>
                             </div>
                         </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>{{ __('settings.branch_email') }} <x-text-danger /></label>
+                                <input type="email" class="form-control form-control-sm"
+                                    placeholder="Branch Email" name="branch_email">
+                            </div>
+                        </div>
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label>{{ __('settings.branch_location') }} <x-text-danger /></label>

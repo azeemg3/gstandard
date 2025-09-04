@@ -1,11 +1,13 @@
 <?php
 
 use App\Http\Controllers\CurrencyController;
+use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Settings\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\NotificaitonController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\StaffSalaryController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\TransactionFeeController;
 use App\Models\Transaction;
@@ -64,5 +66,9 @@ Route::group(['middleware' => ['auth']], function () {
     //Reports
     Route::group(['middleware' => ['permission:profit_report']], function () {
         Route::get('profit-report', [ReportController::class, 'profit_report'])->name('profit.report');
+    });
+    Route::prefix('accounts')->group(function () {
+        Route::resource('staff-salaries', StaffSalaryController::class);
+        Route::resource('expenses', ExpenseController::class);
     });
 });

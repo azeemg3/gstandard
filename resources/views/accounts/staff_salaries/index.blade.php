@@ -4,7 +4,7 @@
     @php
         $breadcrumb[]=['title'=>'Home'];
         $breadcrumb[]=['title'=>'Settings'];
-        $breadcrumb[]=['title'=>__('file.branch_list')];
+        $breadcrumb[]=['title'=>__('Sender Transaction List')];
     @endphp
     <x-content-header :breadcrumb="$breadcrumb" />
     <section class="content">
@@ -12,16 +12,18 @@
             <div class="card card-primary card-outline">
                 <div class="card-body">
                     <div class="row">
-                        @include('settings.branch.modal')
+                        @include('accounts.staff_salaries.modal')
                         <x-add-new-btn btnId="add-new" />
                         <div class="table-responsive">
                             <table class="table table-sm data-table">
                                 <thead>
                                 <tr>
-                                    <th>#</th>
+                                    <th>Date</th>
                                     <th>Branch</th>
-                                    <th>Branch Email</th>
-                                    <th>Country</th>
+                                    <th>Staff</th>
+                                    <th>Payment Method</th>
+                                    <th>Amount</th>
+                                    <th>Note</th>
                                     <th>Action</th>
                                 </tr>
                                 </thead>
@@ -36,4 +38,4 @@
         <!-- /.container-fluid -->
     </section>
 @endsection
-@include('settings.branch.js_func')
+@include('accounts.staff_salaries.js_func')

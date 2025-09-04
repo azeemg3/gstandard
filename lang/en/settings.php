@@ -31,5 +31,6 @@ return [
     'branch_location'=>'Branch Location',
     'company_name'=>'Company Name',
     'company_list'=>'Company List',
-    'company_details'=>'Company Details'
+    'company_details'=>'Company Details',
+    'branch_email'=>'Branch Email',
 ];

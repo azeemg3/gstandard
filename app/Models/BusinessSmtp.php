@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class BusinessSmtp extends Model
 {
@@ -15,14 +16,14 @@ class BusinessSmtp extends Model
         return $this->belongsTo(User::class, 'created_by');
     }
 
-    protected static function boot()
-    {
-        parent::boot();
+    // protected static function boot()
+    // {
+    //     parent::boot();
 
-        static::creating(function ($user) {
-            if (auth()->check()) {
-                $user->created_by =Auth::user()->id;
-            }
-        });
-    }
+    //     static::creating(function ($user) {
+    //         if (auth()->check()) {
+    //             $user->created_by =Auth::user()->id;
+    //         }
+    //     });
+    // }
 }
