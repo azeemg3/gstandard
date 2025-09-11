@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Transaction;
+use Illuminate\Support\Facades\Auth;
+
 class HomeController extends Controller
 {
     /**
@@ -21,6 +24,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $query = Transaction::with('receiver_branch')->select('*');
+        if (!Auth::user()->hasRole('Admin')) {
+            $query->where('from_branch_id', Auth::user()->branch_id);
+        }
+        $data= $query->orderBy('id', 'desc')->limit(10)->get();
+        return view('index', compact('data'));
     }
 }

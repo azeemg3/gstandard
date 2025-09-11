@@ -1,5 +1,5 @@
 <?php
-$lms=['transaction-fee','transaction'];
+$lms=['transaction-fee','transaction','profit-report','branch-summary','staff-salaries','expenses'];
 ?>
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
@@ -36,7 +36,7 @@ $lms=['transaction-fee','transaction'];
                     </a>
                 </li>
                 @include('includes.sidebar.mtms')
-                <li class="nav-item has-treeview @if(in_array(Request::segment(1),$lms)) menu-open @endif">
+                <li class="nav-item has-treeview @if(in_array(Request::segment(2),$lms)) menu-open @endif">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa fa-chart-bar"></i>
                         <p>
@@ -46,13 +46,13 @@ $lms=['transaction-fee','transaction'];
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{route('staff-salaries.index')}}" class="nav-link @if(Request::segment(1)=='profit-report') active @endif">
+                            <a href="{{route('staff-salaries.index')}}" class="nav-link @if(Request::segment(2)=='staff-salaries') active @endif">
                                 <i class="nav-icon fas fa-angle-double-right fa-xs"></i>
                                 <p>Staff Salaries</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{route('expenses.index')}}" class="nav-link @if(Request::segment(1)=='profit-report') active @endif">
+                            <a href="{{route('expenses.index')}}" class="nav-link @if(Request::segment(2)=='expenses') active @endif">
                                 <i class="nav-icon fas fa-angle-double-right fa-xs"></i>
                                 <p>Expenses</p>
                             </a>
@@ -63,7 +63,7 @@ $lms=['transaction-fee','transaction'];
             </ul>
             </li>
             @can('profit_report')
-                <li class="nav-item has-treeview @if(in_array(Request::segment(1),$lms)) menu-open @endif">
+                <li class="nav-item has-treeview @if(in_array(Request::segment(2),$lms)) menu-open @endif">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa fa-file"></i>
                         <p>
@@ -73,9 +73,15 @@ $lms=['transaction-fee','transaction'];
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{route('profit.report')}}" class="nav-link @if(Request::segment(1)=='profit-report') active @endif">
+                            <a href="{{route('profit.report')}}" class="nav-link @if(Request::segment(2)=='profit-report') active @endif">
                                 <i class="nav-icon fas fa-angle-double-right fa-xs"></i>
                                 <p>Profit Report</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('reports.branch-summary')}}" class="nav-link @if(Request::segment(2)=='branch-summary') active @endif">
+                                <i class="nav-icon fas fa-angle-double-right fa-xs"></i>
+                                <p>Branch Summary Report</p>
                             </a>
                         </li>
                     </ul>

@@ -31,4 +31,13 @@ class Branch extends Model
     public function company(){
         return $this->belongsTo(Company::class,'CID','id');
     }
+    public function expenses(){
+        return $this->hasMany(Expense::class,'branch_id','id');
+    }
+    public function staffSalaries(){
+        return $this->hasMany(StaffSalary::class,'branch_id','id');
+    }
+    public function transactions(){
+        return $this->hasMany(Transaction::class,'from_branch_id','id');
+    }
 }

@@ -1,5 +1,5 @@
 @php
-$settings = ['business', 'user', 'role', 'permission','company'];
+$settings = ['business', 'user', 'role', 'permission','company','branch','currency'];
 @endphp
 @can('application_setting_view')
     <li class="nav-item has-treeview @if (in_array(Request::segment(2), $settings)) menu-open @endif

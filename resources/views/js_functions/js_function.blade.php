@@ -72,6 +72,7 @@
                 for (i = 0; i < Object.keys(data).length; i++) {
                     $("#form input[name~='" + Object.keys(data)[i] + "']").val(Object.values(data)[i]);
                     $("#form select[name~='" + Object.keys(data)[i] + "']").val(Object.values(data)[i]);
+                    $("#form textarea[name~='" + Object.keys(data)[i] + "']").val(Object.values(data)[i]);
                 }
                 $('.select2').select2();
             }

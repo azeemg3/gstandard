@@ -9,8 +9,18 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Date</label>
-                                <input type="text" class="form-control form-control-sm"
+                                <input type="text" autocomplete="off" class="form-control form-control-sm date"
                                     placeholder="Date" name="date">
+                            </div>
+                        </div>
+                        <!--col-->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Branch <x-text-danger /></label>
+                                <select class="select2 form-control form-control-sm"  name="branch_id">
+                                    <option value="">Select Branch</option>
+                                    {!! App\Models\Branch::branches() !!}
+                                </select>
                             </div>
                         </div>
                         <!--col-->
@@ -25,7 +35,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Payment Method <x-text-danger /></label>
-                                <select class="select2 form-control form-control-sm" onchange="fetch_trans_fee(this)" name="payment_method">
+                                <select class="select2 form-control form-control-sm"  name="payment_method">
                                     <option value="">Select Payment Method</option>
                                     {!! Helpers::payment_method() !!}
                                 </select>
@@ -46,7 +56,7 @@
                             <label>Notes</label>
                             <textarea
                                 class="form-control form-control-sm" rows="3" placeholder="Enter any additional notes"
-                            name="notes"></textarea>
+                            name="note"></textarea>
                     </div>
                     </div>
                     <!--row-->

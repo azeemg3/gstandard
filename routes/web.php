@@ -34,12 +34,8 @@ Route::get('web_page',function(){
 });
 Auth::routes();
 Route::group(['middleware' => ['auth']], function () {
-    Route::get('dashboard', function () {
-        return view('index');
-    })->name('dashboard');
-    Route::get('/', function () {
-        return view('index');
-    })->name('dashboard');
+    Route::get('dashboard', [HomeController::class, 'index'])->name('dashboard');
+    Route::get('/', [HomeController::class, 'index'])->name('home');
     Route::get('logout', function () {
         Session::flush();
         Auth::logout();
@@ -63,12 +59,12 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('transaction-fee-by-branch/{branch_id}', [TransactionFeeController::class, 'getFeeByBranch'])->name('transaction.fee.by.branch');
     Route::put('transaction/{id}/{status}', [TransactionController::class, 'updateStatus'])->name('transaction.updateStatus');
     Route::get('rec_transaction', [TransactionController::class, 'rec_transaction'])->name('rec_transaction');
-    //Reports
-    Route::group(['middleware' => ['permission:profit_report']], function () {
-        Route::get('profit-report', [ReportController::class, 'profit_report'])->name('profit.report');
-    });
     Route::prefix('accounts')->group(function () {
         Route::resource('staff-salaries', StaffSalaryController::class);
         Route::resource('expenses', ExpenseController::class);
+    });
+    Route::prefix('reports')->group(function () {
+        Route::get('branch-summary', [ReportController::class, 'branch_summary'])->name('reports.branch-summary');
+        Route::get('profit-report', [ReportController::class, 'profit_report'])->name('profit.report');
     });
 });

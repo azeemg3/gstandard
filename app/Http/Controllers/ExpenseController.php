@@ -23,8 +23,8 @@ class ExpenseController extends Controller
                             <button type="button" class="btn btn-info dropdown-toggle dropdown-icon" data-toggle="dropdown" aria-expanded="false">
                               <span class="sr-only">Toggle Dropdown</span>
                               <div class="dropdown-menu" role="menu" style="">
-                                <a class="dropdown-item" onClick="edit_rec(this)" data-action="'.route('expense.edit',$row->id).'" href="#" data-modal="add-new" data-id="'.$row->id.'"><i class="fas fa-edit"></i> Edit</a>
-                                <a class="dropdown-item text-danger del_rec" href="#"><i class="fas fa-trash"></i> Delete</a>
+                                <a class="dropdown-item" onClick="edit_rec(this)" data-action="'.route('expenses.edit',$row->id).'" href="#" data-modal="add-new" data-id="'.$row->id.'"><i class="fas fa-edit"></i> Edit</a>
+                                <a class="dropdown-item text-danger del_rec" onClick="del_rec( \''.route('expenses.destroy',$row->id).'\')" href="#"><i class="fas fa-trash"></i> Delete</a>
                               </div>
                             </button>
                           </div>';
@@ -39,11 +39,13 @@ class ExpenseController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
+            'date' => 'required',
             'name' => 'required',
             'amount' => 'required|numeric',
         ]);
         DB::beginTransaction();
         $data = $request->all();
+        $data['date']= date('Y-m-d',strtotime($request->date));
         $id = $request->id;
         try {
             if ($id == 0 || $id == '') {
@@ -54,6 +56,7 @@ class ExpenseController extends Controller
             DB::commit();
             return $ret;
         } catch (\Illuminate\Database\QueryException $e) {
+            dd($e);
             DB::rollBack();
         }
     }

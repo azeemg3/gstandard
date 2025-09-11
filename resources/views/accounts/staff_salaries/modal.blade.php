@@ -16,7 +16,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Branch <x-text-danger /></label>
-                                <select class="select2 form-control form-control-sm" onchange="fetch_trans_fee(this)" name="branch_id">
+                                <select class="select2 form-control form-control-sm"  name="branch_id">
                                     <option value="">Select Branch</option>
                                     {!! App\Models\Branch::branches() !!}
                                 </select>
