@@ -12,8 +12,6 @@
             <div class="card card-primary card-outline">
                 <div class="card-body">
                     <div class="row">
-                        @include('transaction.modal')
-                        <x-add-new-btn btnId="add-new" />
                         <div class="table-responsive">
                             <table class="table table-sm data-table">
                                 <thead>

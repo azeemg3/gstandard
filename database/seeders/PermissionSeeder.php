@@ -21,6 +21,16 @@ class PermissionSeeder extends Seeder
             'city_delete',
             'city_edit',
             'city_view',
+            // Staff Salaries permissions
+            'staff_salary_add',
+            'staff_salary_delete',
+            'staff_salary_edit',
+            'staff_salary_view',
+            // Expenses permissions
+            'expense_add',
+            'expense_delete',
+            'expense_edit',
+            'expense_view',
             'country_add',
             'country_delete',
             'country_edit',

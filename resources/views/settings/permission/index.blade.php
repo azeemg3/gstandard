@@ -308,6 +308,70 @@ $breadcrumb[] = ['title' => __('settings.all_permission')];
 
                                         </td>
                                     </tr>
+                                    <tr>
+                                        <td>Staff Salaries</td>
+                                        <td>
+                                            <div class="form-group clearfix select_all">
+                                                <div class="icheck-primary d-inline">
+                                                    <input type="checkbox" id="staff_salary_select_all">
+                                                    <label for="staff_salary_select_all">{{ __('settings.select_all') }}</label>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-group clearfix selected_all">
+                                                <div class="icheck-primary d-inline">
+                                                    <input type="checkbox" name="permission[]" id="staff_salary_add" value="staff_salary_add" @if(in_array('staff_salary_add',$permissions)) checked @endif>
+                                                    <label for="staff_salary_add">Add</label>
+                                                </div>
+                                                <div class="icheck-primary d-inline">
+                                                    <input type="checkbox" name="permission[]" id="staff_salary_edit" value="staff_salary_edit" @if(in_array('staff_salary_edit',$permissions)) checked @endif>
+                                                    <label for="staff_salary_edit">Edit</label>
+                                                </div>
+                                                <div class="icheck-warning d-inline">
+                                                    <input type="checkbox" name="permission[]" id="staff_salary_view" value="staff_salary_view" @if(in_array('staff_salary_view',$permissions)) checked @endif>
+                                                    <label for="staff_salary_view">View</label>
+                                                </div>
+                                                <div class="icheck-danger d-inline">
+                                                    <input type="checkbox" name="permission[]" id="staff_salary_delete" value="staff_salary_delete" @if(in_array('staff_salary_delete',$permissions)) checked @endif>
+                                                    <label for="staff_salary_delete">Delete</label>
+                                                </div>
+                                            </div>
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Expenses</td>
+                                        <td>
+                                            <div class="form-group clearfix select_all">
+                                                <div class="icheck-primary d-inline">
+                                                    <input type="checkbox" id="expense_select_all">
+                                                    <label for="expense_select_all">{{ __('settings.select_all') }}</label>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-group clearfix selected_all">
+                                                <div class="icheck-primary d-inline">
+                                                    <input type="checkbox" name="permission[]" id="expense_add" value="expense_add" @if(in_array('expense_add',$permissions)) checked @endif>
+                                                    <label for="expense_add">Add</label>
+                                                </div>
+                                                <div class="icheck-primary d-inline">
+                                                    <input type="checkbox" name="permission[]" id="expense_edit" value="expense_edit" @if(in_array('expense_edit',$permissions)) checked @endif>
+                                                    <label for="expense_edit">Edit</label>
+                                                </div>
+                                                <div class="icheck-warning d-inline">
+                                                    <input type="checkbox" name="permission[]" id="expense_view" value="expense_view" @if(in_array('expense_view',$permissions)) checked @endif>
+                                                    <label for="expense_view">View</label>
+                                                </div>
+                                                <div class="icheck-danger d-inline">
+                                                    <input type="checkbox" name="permission[]" id="expense_delete" value="expense_delete" @if(in_array('expense_delete',$permissions)) checked @endif>
+                                                    <label for="expense_delete">Delete</label>
+                                                </div>
+                                            </div>
+
+                                        </td>
+                                    </tr>
                                 </tbody>
                             </table>
                             <button type="submit" class="btn btn-success float-right"><i class="fa fa-save"></i> Save</button>

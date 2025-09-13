@@ -45,18 +45,22 @@ $lms=['transaction-fee','transaction','profit-report','branch-summary','staff-sa
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
+                        @can('staff_salary_view')
                         <li class="nav-item">
                             <a href="{{route('staff-salaries.index')}}" class="nav-link @if(Request::segment(2)=='staff-salaries') active @endif">
                                 <i class="nav-icon fas fa-angle-double-right fa-xs"></i>
                                 <p>Staff Salaries</p>
                             </a>
                         </li>
+                        @endcan
+                        @can('expense_view')
                         <li class="nav-item">
                             <a href="{{route('expenses.index')}}" class="nav-link @if(Request::segment(2)=='expenses') active @endif">
                                 <i class="nav-icon fas fa-angle-double-right fa-xs"></i>
                                 <p>Expenses</p>
                             </a>
                         </li>
+                        @endcan
                     </ul>
                 </li>
                 @include('includes.sidebar.setting')
