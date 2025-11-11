@@ -6,9 +6,10 @@ use App\Mail\MtchEmail;
 use App\Models\Branch;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
-use DB;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Database\QueryException;
 use Yajra\DataTables\DataTables;
 
 class TransactionController extends Controller
@@ -52,11 +53,14 @@ class TransactionController extends Controller
                                 Action
                               <span class="sr-only">Toggle Dropdown</span></button>
                               <div class="dropdown-menu" role="menu" style="">
-                              <a class="dropdown-item" onClick="edit_trans(this)" data-action="' . route('transaction.edit', $row->id) . '" href="#" data-modal="add-new" data-id="' . $row->id . '"><i class="fas fa-edit"></i> Edit</a>
+                              '.(auth()->user()->hasRole('Admin') || $row->status=='pending'?'
+                                <a class="dropdown-item" onClick="edit_trans(this)" data-action="' . route('transaction.edit', $row->id) . '" href="#" data-modal="add-new" data-id="' . $row->id . '"><i class="fas fa-edit"></i> Edit</a>
+                                <a class="dropdown-item text-danger del_rec" href="javascript:void(0)" data-id="' . $row->id . '" data-action="' . url('transaction') . '"><i class="fas fa-trash"></i> Delete</a>
+                              ':'').'
+                              
                               <a class="dropdown-item" target="_blank" href="' . route('transaction.show', $row->id) . '" data-id="' . $row->id . '"><i class="fas fa-print"></i> Print Transaction</a>
-                              <a class="dropdown-item text-success approve_rec" href="javascript:void(0)" data-id="' . $row->id . '" data-action="' . route('transaction.updateStatus', [$row->id, 'approved']) . '"><i class="fas fa-check"></i> Approve</a>
-                              <a class="dropdown-item text-danger approve_rec" href="javascript:void(0)" data-id="' . $row->id . '" data-action="' . route('transaction.updateStatus', [$row->id, 'cancelled']) . '"><i class="fas fa-times"></i> Cancel</a>
-                              <a class="dropdown-item text-danger del_rec" href="javascript:void(0)" data-id="' . $row->id . '" data-action="' . url('transaction') . '"><i class="fas fa-trash"></i> Delete</a>
+                              
+                              
                               </div>
 
                           </div>';
@@ -163,7 +167,7 @@ class TransactionController extends Controller
     }
     public function updateStatus($id, $status)
     {
-        $transaction = Transaction::where('status','!=','pending')->find($id);
+        $transaction = Transaction::where('status','!=','approved')->find($id);
         if (!$transaction) {
             return response()->json(['errors' => 'Transaction not found OR Pending Transaction can not be Delivered'], 422);
         }
@@ -210,7 +214,10 @@ class TransactionController extends Controller
                               <span class="sr-only">Toggle Dropdown</span></button>
                               <div class="dropdown-menu" role="menu" style="">
                               <a class="dropdown-item" target="_blank" href="' . route('transaction.show', $row->id) . '" data-id="' . $row->id . '"><i class="fas fa-print"></i> Print Transaction</a>
-                              <a class="dropdown-item text-success approve_rec" href="javascript:void(0)" data-id="' . $row->id . '" data-action="' . route('transaction.updateStatus', [$row->id, 'delivered']) . '"><i class="fas fa-check"></i> Delivered</a>
+                              '.(($row->status=='pending' && auth()->user()->hasRole('Staff Manger') || auth()->user()->hasRole('Admin'))?'
+                              <a class="dropdown-item text-success approve_rec" href="javascript:void(0)" data-id="' . $row->id . '" data-action="' . route('transaction.updateStatus', [$row->id, 'approved']) . '"><i class="fas fa-check"></i> Approve</a>
+                              ':'').'
+                              <a class="dropdown-item text-danger approve_rec" href="javascript:void(0)" data-id="' . $row->id . '" data-action="' . route('transaction.updateStatus', [$row->id, 'cancelled']) . '"><i class="fas fa-times"></i> Cancel</a>
                               </div>
 
                           </div>';

@@ -29,7 +29,7 @@ Route::get('test', function () {
     event(new App\Events\NotificationStatus('notification-send'));
     return "Event has been sent!";
 });
-Route::get('web_page',function(){
+Route::get('web_page', function () {
     return view('welcome');
 });
 Auth::routes();
