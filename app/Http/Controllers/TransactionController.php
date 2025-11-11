@@ -167,7 +167,7 @@ class TransactionController extends Controller
     }
     public function updateStatus($id, $status)
     {
-        $transaction = Transaction::where('status','!=','approved')->find($id);
+        $transaction = Transaction::find($id);
         if (!$transaction) {
             return response()->json(['errors' => 'Transaction not found OR Pending Transaction can not be Delivered'], 422);
         }
@@ -215,9 +215,12 @@ class TransactionController extends Controller
                               <div class="dropdown-menu" role="menu" style="">
                               <a class="dropdown-item" target="_blank" href="' . route('transaction.show', $row->id) . '" data-id="' . $row->id . '"><i class="fas fa-print"></i> Print Transaction</a>
                               '.(($row->status=='pending' && auth()->user()->hasRole('Branch Manager') || auth()->user()->hasRole('Admin'))?'
-                              <a class="dropdown-item text-success approve_rec" href="javascript:void(0)" data-id="' . $row->id . '" data-action="' . route('transaction.updateStatus', [$row->id, 'approved']) . '"><i class="fas fa-check"></i> Approve</a>
+                                <a class="dropdown-item text-success approve_rec" href="javascript:void(0)" data-id="' . $row->id . '" data-action="' . route('transaction.updateStatus', [$row->id, 'approved']) . '"><i class="fas fa-check"></i> Approve</a>
                               ':'').'
                               <a class="dropdown-item text-danger approve_rec" href="javascript:void(0)" data-id="' . $row->id . '" data-action="' . route('transaction.updateStatus', [$row->id, 'cancelled']) . '"><i class="fas fa-times"></i> Cancel</a>
+                              '.(($row->status=='approved'  || auth()->user()->hasRole('Admin'))?'
+                                <a class="dropdown-item text-info approve_rec" href="javascript:void(0)" data-id="' . $row->id . '" data-action="' . route('transaction.updateStatus', [$row->id, 'delivered']) . '"><i class="fas fa-truck"></i> Delivered</a>
+                              ':'').'
                               </div>
 
                           </div>';
