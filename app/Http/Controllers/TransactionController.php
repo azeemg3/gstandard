@@ -214,7 +214,7 @@ class TransactionController extends Controller
                               <span class="sr-only">Toggle Dropdown</span></button>
                               <div class="dropdown-menu" role="menu" style="">
                               <a class="dropdown-item" target="_blank" href="' . route('transaction.show', $row->id) . '" data-id="' . $row->id . '"><i class="fas fa-print"></i> Print Transaction</a>
-                              '.(($row->status=='pending' && auth()->user()->hasRole('Staff Manager') || auth()->user()->hasRole('Admin'))?'
+                              '.(($row->status=='pending' && auth()->user()->hasRole('Branch Manager') || auth()->user()->hasRole('Admin'))?'
                               <a class="dropdown-item text-success approve_rec" href="javascript:void(0)" data-id="' . $row->id . '" data-action="' . route('transaction.updateStatus', [$row->id, 'approved']) . '"><i class="fas fa-check"></i> Approve</a>
                               ':'').'
                               <a class="dropdown-item text-danger approve_rec" href="javascript:void(0)" data-id="' . $row->id . '" data-action="' . route('transaction.updateStatus', [$row->id, 'cancelled']) . '"><i class="fas fa-times"></i> Cancel</a>
