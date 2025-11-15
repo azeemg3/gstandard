@@ -24,6 +24,9 @@ class TransactionController extends Controller
             if (!Auth::user()->hasRole('Admin')) {
                 $data->where('from_branch_id', Auth::user()->branch_id);
             }
+            if(Auth::user()->hasRole('Staff')){
+                $data->where('created_by', Auth::user()->id);
+            }
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('checkbox', function ($row) {
@@ -181,7 +184,7 @@ class TransactionController extends Controller
     {
         if ($request->ajax()) {
             $data = Transaction::with('receiver_branch')->select('*');
-            if (Auth::user()->role != 'admin') {
+            if (!Auth::user()->hasRole('Admin')) {
                 $data->where('to_branch_id', Auth::user()->branch_id);
             }
             return DataTables::of($data)
@@ -214,13 +217,29 @@ class TransactionController extends Controller
                               <span class="sr-only">Toggle Dropdown</span></button>
                               <div class="dropdown-menu" role="menu" style="">
                               <a class="dropdown-item" target="_blank" href="' . route('transaction.show', $row->id) . '" data-id="' . $row->id . '"><i class="fas fa-print"></i> Print Transaction</a>
-                              '.(($row->status=='pending' && auth()->user()->hasRole('Branch Manager') || auth()->user()->hasRole('Admin'))?'
-                                <a class="dropdown-item text-success approve_rec" href="javascript:void(0)" data-id="' . $row->id . '" data-action="' . route('transaction.updateStatus', [$row->id, 'approved']) . '"><i class="fas fa-check"></i> Approve</a>
-                              ':'').'
-                              <a class="dropdown-item text-danger approve_rec" href="javascript:void(0)" data-id="' . $row->id . '" data-action="' . route('transaction.updateStatus', [$row->id, 'cancelled']) . '"><i class="fas fa-times"></i> Cancel</a>
-                              '.(($row->status=='approved'  || auth()->user()->hasRole('Admin'))?'
-                                <a class="dropdown-item text-info approve_rec" href="javascript:void(0)" data-id="' . $row->id . '" data-action="' . route('transaction.updateStatus', [$row->id, 'delivered']) . '"><i class="fas fa-truck"></i> Delivered</a>
-                              ':'').'
+                              '.(
+                                ($row->status == 'pending' && !in_array($row->status, ['approved','delivered']) && (auth()->user()->hasRole('Branch Manager') || auth()->user()->hasRole('Admin')))? '
+                                    <a class="dropdown-item text-success approve_rec" href="javascript:void(0)" 
+                                    data-id="' . $row->id . '" 
+                                    data-action="' . route('transaction.updateStatus', [$row->id, 'approved']) . '">
+                                        <i class="fas fa-check"></i> Approve
+                                        </a>
+                                        <a class="dropdown-item text-danger approve_rec" href="javascript:void(0)" data-id="' . $row->id . '" data-action="' . route('transaction.updateStatus', [$row->id, 'cancelled']) . '"><i class="fas fa-times"></i> Cancel</a>
+                                    '
+                                    : ''
+                                ).'
+                              
+                              '.(
+                                    ($row->status == 'approved' && (auth()->user()->hasRole('Admin') || auth()->user()->hasRole('Branch Manager')))? '
+                                        <a class="dropdown-item text-info approve_rec" href="javascript:void(0)" 
+                                        data-id="' . $row->id . '" 
+                                        data-action="' . route('transaction.updateStatus', [$row->id, 'delivered']) . '">
+                                            <i class="fas fa-truck"></i> Delivered
+                                        </a>
+                                    '
+                                    : ''
+                                ).'
+
                               </div>
 
                           </div>';
